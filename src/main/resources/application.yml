@@ -42,4 +42,4 @@ kafka:
         camel-request-path: kafka:main?brokers=localhost:9092
     kafka2:
         host: 'localhost:9093'
-        camel-request-path: kafka:main?brokers=localhost:9093
+        camel-request-path: kafka:result?brokers=localhost:9093

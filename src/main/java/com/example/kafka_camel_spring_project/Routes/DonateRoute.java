@@ -22,7 +22,8 @@ public class DonateRoute  extends RouteBuilder{
         from("direct:donate")
                 .log("send to direct:to_db")
                 .to("direct:to_db")
-                //.to("direct:to_kafka")
+                .log("send to direct:to_kafka")
+                .to("direct:to_kafka")
                 .setHeader("MessageType", simple("SUCCESS"))
                 .log("send to direct:status")
                 .to("direct:status");

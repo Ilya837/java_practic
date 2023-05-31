@@ -23,6 +23,11 @@ public class MainRoute extends RouteBuilder {
 
             onException(UnmarshalException.class)
                     .to("micrometer:counter:unmarshal")
+                    .process(exchange -> {
+                        exchange.getMessage().setBody("Unmarshal exception");
+                        exchange.getIn().setHeader("Message type","ERROR");
+                    })
+                    .to("direct:status")
                     .log("unmarshalExpention");
 
 
@@ -41,30 +46,35 @@ public class MainRoute extends RouteBuilder {
                                 if(donate.getUser() != null){
                                     System.out.println("User is not null");
                                     exchange.getIn().setHeader("Messege type","SUCCESS");
+
+                                    if(donate.getUser().getNickname() == null){
+                                        exchange.getMessage().setBody("Message not contain user.nickname");
+                                        exchange.getIn().setHeader("Message type","ERROR");
+                                    }
+
+                                    if(donate.getUser().getEmail() == null){
+                                        exchange.getMessage().setBody("Message not contain user.email");
+                                        exchange.getIn().setHeader("Message type","ERROR");
+                                    }
+
+                                    if(donate.getUser().getId() == null){
+                                        exchange.getMessage().setBody("Message not contain user.id");
+                                        exchange.getIn().setHeader("Message type","ERROR");
+                                    }
+
                                 }
                                 else{
                                     System.out.println("User is null");
-                                    exchange.getIn().setHeader("Message type","ERROR");
-
                                     exchange.getMessage().setBody("Message not contain name");
 
-                                    if(donate.getSum() != null){
-                                        System.out.println("Sum is not null");
-                                    }
-                                    else{
-                                        System.out.println("Sum is null");
-                                        exchange.getMessage().setBody("Message not contain name and sum");
-
-                                    }
                                 }
 
                                 if(donate.getSum() != null){
                                     System.out.println("Sum is not null");
-                                    exchange.getIn().setHeader("Message type","SUCCESS");
                                 }
                                 else{
                                     System.out.println("Sum is null");
-                                    exchange.getMessage().setBody("Message not contain sum");
+                                    exchange.getMessage().setBody("Message not contain Sum");
                                     exchange.getIn().setHeader("Message type","ERROR");
 
                                 }
@@ -82,7 +92,6 @@ public class MainRoute extends RouteBuilder {
                 from("direct:choice")
                         .choice()
                             .when(header("Message type").contains("ERROR"))
-                                .setBody(simple("Message dosn't contain user or sum"))
                                 .log("send to direct:status")
                                 .to("direct:status")
                             .otherwise()
