@@ -1,6 +1,6 @@
 package com.example.kafka_camel_spring_project.Routes;
 
-import com.example.kafka_camel_spring_project.Routes.model.DonateModel;
+import com.example.kafka_camel_spring_project.model.DonateModel;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;

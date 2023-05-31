@@ -1,6 +1,6 @@
-package com.example.kafka_camel_spring_project.Routes.Routes;
+package com.example.kafka_camel_spring_project.Routes;
 
-import com.example.kafka_camel_spring_project.Routes.generated.Status;
+import com.example.kafka_camel_spring_project.generated.Status;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.spi.DataFormat;

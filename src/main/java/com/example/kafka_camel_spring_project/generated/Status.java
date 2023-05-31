@@ -1,5 +1,5 @@
 
-package com.example.kafka_camel_spring_project.Routes.generated;
+package com.example.kafka_camel_spring_project.generated;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

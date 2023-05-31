@@ -1,5 +1,5 @@
 
-package com.example.kafka_camel_spring_project.Routes.generated;
+package com.example.kafka_camel_spring_project.generated;
 
 import java.math.BigInteger;
 import jakarta.xml.bind.annotation.XmlAccessType;

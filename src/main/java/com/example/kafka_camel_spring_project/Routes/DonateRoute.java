@@ -1,9 +1,9 @@
-package com.example.kafka_camel_spring_project.Routes.Routes;
+package com.example.kafka_camel_spring_project.Routes;
 
 
-import com.example.kafka_camel_spring_project.Routes.Dto.DonateDto;
-import com.example.kafka_camel_spring_project.Routes.model.DonateModel;
-import com.example.kafka_camel_spring_project.Routes.generated.Donate;
+import com.example.kafka_camel_spring_project.Dto.DonateDto;
+import com.example.kafka_camel_spring_project.model.DonateModel;
+import com.example.kafka_camel_spring_project.generated.Donate;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;

@@ -1,4 +1,4 @@
-package com.example.kafka_camel_spring_project.Routes.model;
+package com.example.kafka_camel_spring_project.model;
 
 
 import jakarta.persistence.*;

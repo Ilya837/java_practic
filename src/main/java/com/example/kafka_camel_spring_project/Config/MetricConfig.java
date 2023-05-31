@@ -1,4 +1,4 @@
-package com.example.kafka_camel_spring_project.Routes.Config;
+package com.example.kafka_camel_spring_project.Config;
 
 
 import io.micrometer.core.instrument.Clock;
