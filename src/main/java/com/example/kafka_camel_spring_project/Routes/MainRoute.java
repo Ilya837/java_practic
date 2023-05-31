@@ -5,13 +5,15 @@ import jakarta.xml.bind.UnmarshalException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
 import org.apache.camel.spi.DataFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class MainRoute extends RouteBuilder {
 
-    final String path = "kafka:%s?brokers=localhost:9092";
+    @Value("${kafka.kafka1.camel-request-path}")
+    private String path;
 
     @Override
     public void configure() throws Exception {
@@ -25,7 +27,7 @@ public class MainRoute extends RouteBuilder {
 
 
 
-                fromF(path,"main")
+                from(path)
                     .log("Received data: ${body}")
                     .unmarshal(format)
                     .choice()
@@ -67,17 +69,26 @@ public class MainRoute extends RouteBuilder {
 
                                 }
                             })
-                            .choice()
-                            .when(header("Message type").contains("ERROR"))
-                                .setBody(simple("Message dosn't contain user or sum"))
-                                .to("direct:status")
-                            .otherwise()
-                                .to("direct:donate")
+                            .to("direct:choice")
+
 
                         .otherwise()
                             .setBody(simple("Message is not a Donate"))
                             .setHeader("MessageType", simple("ERROR"))
+                            .log("send to direct:status")
                             .to("direct:status");
+
+
+                from("direct:choice")
+                        .choice()
+                            .when(header("Message type").contains("ERROR"))
+                                .setBody(simple("Message dosn't contain user or sum"))
+                                .log("send to direct:status")
+                                .to("direct:status")
+                            .otherwise()
+                                .log("send to direct:donate")
+                                .to("direct:donate");
+
         }
     }
 }

@@ -20,15 +20,15 @@ public class DonateRoute  extends RouteBuilder{
     public void configure() throws Exception {
 
         from("direct:donate")
-                .transacted()
-
+                .log("send to direct:to_db")
                 .to("direct:to_db")
-                .to("direct:to_kafka")
-
+                //.to("direct:to_kafka")
                 .setHeader("MessageType", simple("SUCCESS"))
+                .log("send to direct:status")
                 .to("direct:status");
 
         from("direct:to_db")
+                .log("start process")
                 .process(exchange -> {
                     Donate donate = exchange.getIn().getBody(Donate.class);
                     DonateModel dm = new DonateModel();

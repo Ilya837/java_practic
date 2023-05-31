@@ -15,7 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @CamelSpringBootTest
 @EnableAutoConfiguration
-@SpringBootTest(properties = {"kafka-requests-path=direct:requests"})
+@SpringBootTest(properties = {"kafka.kafka1.camel-request-path=direct:requests"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @MockEndpoints
 class Tests {
@@ -25,7 +25,7 @@ class Tests {
 
 
 	@EndpointInject("mock:jpa:com.example.kafka_camel_spring_project.model.DonateModel")
-	public MockEndpoint saveToDb;
+	 MockEndpoint saveToDb;
 
 
 	@Test
@@ -35,19 +35,7 @@ class Tests {
 	@Test
 	void SaveToDB() throws InterruptedException {
 
-		String data = """
-				    
-					<?xml version="1.0" encoding="UTF-8" ?>
-				   
-				   <Donate xmlns="/jaxb/gen">
-				       <user>
-				           <id>1</id>
-				           <nickname>Ilya12345</nickname>
-				           <email>qwe@mail.ru</email>
-				       </user>
-				       <Sum>1234</Sum>
-				   </Donate>
-				""";
+		String data = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><Donate xmlns=\"/jaxb/gen\"><user><id>1</id><nickname>qwe</nickname><email>qwe@mail.ru</email></user><Sum>1234</Sum></Donate>";
 
 		DonateModel dm = new DonateModel();
 
@@ -56,7 +44,7 @@ class Tests {
 
 		saveToDb.expectedBodiesReceived(dm);
 
-		producerTemplate.sendBody("direct:reqests",data);
+		producerTemplate.sendBody("direct:requests",data);
 
 		saveToDb.assertIsSatisfied(5000);
 	}
