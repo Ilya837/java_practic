@@ -1,0 +1,17 @@
+{
+	"ulid": "01H1S55MVKEEJSV7AZH121SAG8",
+	"minTime": 1685534403728,
+	"maxTime": 1685541600000,
+	"stats": {
+		"numSamples": 31297,
+		"numSeries": 133,
+		"numChunks": 308
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01H1S55MVKEEJSV7AZH121SAG8"
+		]
+	},
+	"version": 1
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="/jaxb/gen"
+        xmlns:userns="/jaxb/gen"
+        elementFormDefault="qualified">
+
+    <element name="Donate" type="userns:Donate"/>
+    <element name="User" type="userns:User"/>
+    <element name="Status" type="userns:Status"/>
+
+
+    <complexType name="Donate">
+        <sequence>
+            <element name="user" type="userns:User" />
+            <element name="Sum" type="positiveInteger" />
+        </sequence>
+    </complexType>
+
+    <complexType name="User">
+        <sequence>
+            <element name="id" type="integer" minOccurs="1" maxOccurs="1"/>
+            <element name="nickname" type="string" minOccurs="1" maxOccurs="1"/>
+            <element name="email" minOccurs="1" maxOccurs="1">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[^@]+@[^.]+\..+"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+
+    <complexType name="Status">
+        <sequence>
+            <element name="statusType">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="ERROR"/>
+                        <enumeration value="SUCCESS"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <element name="message" type="string"/>
+        </sequence>
+    </complexType>
+
+</schema>

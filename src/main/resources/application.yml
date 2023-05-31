@@ -1,0 +1,45 @@
+management:
+    server:
+        port: 8080
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - info
+                    - health
+                    - prometheus
+    prometheus:
+        metrics:
+            export:
+                enabled: true
+
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/Donates?WriteBatchedInsert=true
+        username: postgres
+        password: 1234
+        driver-class-name: org.postgresql.Driver
+        hikari:
+            maximum-pool-size: 25
+    jpa:
+        properties:
+            hibernate:
+                globally_quoted_identifiers: true
+                format_sql: true
+        #    show-sql: true
+        hibernate:
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+camel:
+    springboot:
+        main-run-controller: true
+
+kafka:
+    kafka1:
+        host: 'localhost:9092'
+        camel-request-path: kafka:main?brokers=localhost:9092
+    kafka2:
+        host: 'localhost:9093'
+        camel-request-path: kafka:main?brokers=localhost:9093

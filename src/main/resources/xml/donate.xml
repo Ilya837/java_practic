@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Donate xmlns="/jaxb/gen">
+    <user>
+        <id>1</id>
+        <nickname>Ilya123</nickname>
+        <email>qwe@mail.ru</email>
+    </user>
+    <Sum>1234</Sum>
+</Donate>
